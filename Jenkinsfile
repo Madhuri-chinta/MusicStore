@@ -16,7 +16,7 @@ pipeline {
         }
         stage ('npm') {
             steps {
-                sh 'cd /home/ubuntu/workspace/music-scr/MusicStore/ClientApp'
+                sh 'cd /home/ubuntu/workspace/musicstore/MusicStore/ClientApp'
                 sh 'npm install express'
             }
         } 
