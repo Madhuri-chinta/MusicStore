@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'UBUNTU_NODE1'}
-    //triggers { cron ('*/5 * * * 0') }
-    triggers { pollSCM ('*/2 * * * 0')}
+    //triggers { cron ('*/5 * * * 0') } with cron
+   // triggers { pollSCM ('*/2 * * * 0')} with pollscm
     parameters { 
         string(name: 'DOTNET_BUILD', defaultValue: 'build', description: 'dotnet build') 
         choice(name: 'DOTNET_RESTORE', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet restore')
