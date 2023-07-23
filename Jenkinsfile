@@ -22,7 +22,7 @@ pipeline {
         stage ('test') {
             steps {
                 //sh 'dotnet test ./MusicStoreTest/MusicStoreTest.csproj'
-                sh 'dotnet test --logger "junit;LogFilePath=**/TEST-*.xml" ./MusicStoreTest/MusicStoreTest.csproj'
+                sh 'dotnet test --logger "junit;LogFilePath=test-*.xml" ./MusicStoreTest/MusicStoreTest.csproj'
                 junit testResults: '**/surefire-reports/*.xml'
             }
         }
