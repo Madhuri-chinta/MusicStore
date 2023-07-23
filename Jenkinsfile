@@ -19,11 +19,16 @@ pipeline {
                 sh "dotnet ${params.DOTNET_BUILD} ./MusicStore/MusicStore.csproj"
             }
         }
+        stage ('test') {
+            steps {
+                sh 'dotenet test ./MusicStoreTest/MusicStoreTest.csproj'
+            }
+        }
         stage ('npm') {
             steps {
                 sh 'cd /home/ubuntu/workspace/musicstore/MusicStore/ClientApp'
                 sh 'npm install express'
             }
         } 
-           }
+       }
 }
