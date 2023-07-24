@@ -3,8 +3,12 @@ pipeline {
     //triggers { cron ('*/5 * * * 0') } with cron
    // triggers { pollSCM ('*/2 * * * 0')} with pollscm
     parameters { 
-        string(name: 'DOTNET_BUILD', defaultValue: 'build', description: 'dotnet build') // only one option
-        choice(name: 'DOTNET_RESTORE', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet restore') // multiple options
+        string(name: 'DOTNET_BUILD', defaultValue: 'build', description: 'dotnet build') // only one option it is dotnet build
+        string(name: 'DOTNET_RESTORE', defaultValue: 'restore', description: 'dotnet restore') // only one option it is dotnet restore 
+    }
+    parameters {
+        choice(name: 'DOTNET_RESTORE', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet restore') // multiple options it is dotnet restore
+        choice(name: 'DOTENET_BUILD', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet build') // multiple options it is dotnet build
     }
     stages {
         stage ('vcs') {
