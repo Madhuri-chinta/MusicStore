@@ -47,3 +47,4 @@ pipeline {
                  to : 'sweety123@gmail.com'
         }   
 }
+}
