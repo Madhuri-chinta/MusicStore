@@ -9,7 +9,7 @@ pipeline {
     //parameters {
         //choice(name: 'DOTNET_RESTORE', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet restore') // multiple options it is dotnet restore
         //choice(name: 'DOTENET_BUILD', choices: [ 'restore', 'test', 'build', 'run test' ], description: 'dotnet build') // multiple options it is dotnet build
-    }
+    //}
     stages {
         stage ('vcs') {
             steps {
