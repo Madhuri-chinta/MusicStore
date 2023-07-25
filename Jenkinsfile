@@ -38,17 +38,17 @@ pipeline {
         } 
        }
     post {
-        failure {
-           mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is failure",
+        success {
+           mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is success",
                 body : "Use this URL ${BUILD_URL} for more info",
                 from : "${GIT_COMMITTER_EMAIL}", // here pass jenkins environmental variable 
                 to : "${GIT_AUTHOR_EMAIL}" // here also pass jenkins environmental variable 
         }
-        success {
-            mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is success",
+        failure {
+            mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is failure",
                  body : "Use this URL ${BUILD_URL} for more info",
-                 from : 'madhu123@gmail.com',
-                 to : 'sweety123@gmail.com'
+                 from : "${GIT_COMMITTER_EMAIL}",
+                 to : "${GIT_AUTHOR_EMAIL}"
         }   
 }
 }
