@@ -17,12 +17,22 @@ pipeline {
                     branch: 'main'
             }
         }
+        stage ('Sonarqube Analysis') { 
+            steps {
+                sh 'dotnet tool install --global dotnet-sonarscanner' 
+                sh 'dotnet sonarscanner begin /k:"<projectkey>" /d:sonar.host.url="<url of sonarcloud>"  /d:sonar.token="<secrete code of token>"'
+                sh 'dotnet build /home/ubuntu/MusicStore/MusicStore.sln'
+                sh 'dotnet sonarscanner end /d:sonar.token="<secrete code of token>"'
+            }
+        }   
         stage ('build') {
             steps {
                 sh "dotnet ${params.DOTNET_RESTORE} ./MusicStore/MusicStore.csproj"
                 sh "dotnet ${params.DOTNET_BUILD} ./MusicStore/MusicStore.csproj"
             }
         }
+        
+        
         stage ('test') {
             steps {
                 //sh 'dotnet test ./MusicStoreTest/MusicStoreTest.csproj'
@@ -36,7 +46,7 @@ pipeline {
                 sh 'npm install express'
             }
         } 
-       }
+    }
     post {
         success {
            mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is success",
@@ -47,8 +57,13 @@ pipeline {
         failure {
             mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is failure",
                  body : "Use this URL ${BUILD_URL} for more info",
-                 from : "${GIT_COMMITTER_EMAIL}",
+                 from : 'madhuri123@gmail.com'
                  to : "${GIT_AUTHOR_EMAIL}"
         }   
+    }
 }
-}
+
+
+
+
+
