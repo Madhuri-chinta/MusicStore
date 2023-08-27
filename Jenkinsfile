@@ -19,11 +19,13 @@ pipeline {
         }
         stage ('Sonarqube Analysis') { 
             steps {
-                sh 'dotnet tool install --global dotnet-sonarscanner' 
-                sh 'dotnet sonarscanner begin /k:"<projectkey>" /d:sonar.host.url="<url of sonarcloud>"  /d:sonar.token="<secrete code of token>"'
-                sh 'dotnet build /home/ubuntu/MusicStore/MusicStore.sln'
-                sh 'dotnet sonarscanner end /d:sonar.token="<secrete code of token>"'
-            }
+                //sh 'dotnet tool install --global dotnet-sonarscanner'
+                sh 'export PATH="$PATH:/root/.dotnet/tools"'
+                sh 'ls -al /home/ubuntu/workspace/musicstore'
+                sh 'sudo /root/.dotnet/tools/dotnet-sonarscanner begin /k:"Jenkins123" /d:sonar.host.url="http://43.205.129.12:32768"  /d:sonar.token="squ_9d02faff0e73e8a7d6c83f5149e6ee4108da9896"'
+                sh 'dotnet build /home/ubuntu/workspace/musicstore/MusicStore/MusicStore.csproj'
+                sh 'sudo /root/.dotnet/tools/dotnet-sonarscanner end /d:sonar.token="squ_9d02faff0e73e8a7d6c83f5149e6ee4108da9896"'
+             }
         }   
         stage ('build') {
             steps {
@@ -57,7 +59,7 @@ pipeline {
         failure {
             mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is failure",
                  body : "Use this URL ${BUILD_URL} for more info",
-                 from : 'madhuri123@gmail.com'
+                 from : 'madhuri123@gmail.com',
                  to : "${GIT_AUTHOR_EMAIL}"
         }   
     }
